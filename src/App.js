@@ -3,6 +3,7 @@ import HomePage from "./Components/HomePage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Read from "./Components/Read";
 import ReadPoem from "./Components/ReadPoem";
+import PoemWriter from "./Components/PoemWriter";
 
 function App() {
   const router = createBrowserRouter([
@@ -18,6 +19,10 @@ function App() {
     {
       path: "poem/:poemId",
       element: <ReadPoem />,
+    },
+    {
+      path: "write",
+      element: <PoemWriter />,
     },
   ]);
   return (

@@ -14,6 +14,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 const navItems = ["Write", "About", "Profile"];
@@ -36,7 +37,9 @@ function Navbar(props) {
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
+              <Link to="write">
+                <ListItemText primary={item} />
+              </Link>
             </ListItemButton>
           </ListItem>
         ))}
@@ -50,7 +53,7 @@ function Navbar(props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar component="nav" color="transparent" sx={{ position: "static" }}>
+      <AppBar component="nav" color="inherit" sx={{ position: "fixed" }}>
         <Toolbar>
           <IconButton
             color="#000000"
@@ -75,9 +78,11 @@ function Navbar(props) {
                   <AccountCircleIcon />
                 </IconButton>
               ) : (
-                <Button key={item} sx={{ color: "#000000" }}>
-                  {item}
-                </Button>
+                <Link to="/write">
+                  <Button key={item} sx={{ color: "#000000" }}>
+                    {item}
+                  </Button>
+                </Link>
               )
             )}
           </Box>
