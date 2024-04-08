@@ -5,8 +5,9 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
-const PostCard = () => {
+const PostCard = (props) => {
   return (
     <Card
       sx={{
@@ -17,16 +18,13 @@ const PostCard = () => {
     >
       <CardContent>
         <Typography variant="h5" gutterBottom>
-          Title
+          {props.PostCardData.PoemTitle}
         </Typography>
         <Typography variant="body1" paragraph>
-          This is a sample post content. Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit. Nullam ultricies varius ex, eget aliquam enim mollis
-          sit amet. Sed condimentum tellus vitae odio fermentum, eu mollis
-          mauris convallis.
+          {props.PostCardData.PoemContent.trim().substring(0, 150)}...
         </Typography>
         <Typography variant="caption" paragraph>
-          Posted by: Aditya Deo
+          Posted by: {props.PostCardData.Poet.Username}
         </Typography>
         <Box
           sx={{
@@ -37,22 +35,34 @@ const PostCard = () => {
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <FavoriteBorderIcon sx={{ color: "black", margin: "5px" }} />
-            <Typography variant="caption">332 likes</Typography>
+            <Typography variant="caption">
+              {props.PostCardData.NumberOfLikes} likes
+            </Typography>
           </Box>
-          <Button
-            variant="outlined"
-            color="primary"
-            sx={{
+          <Link
+            to={`/poem/${props.PostCardData._id}`}
+            style={{
+              textDecoration: "none",
               color: "black",
-              borderColor: "black",
-              "&:hover": {
-                backgroundColor: "black",
-                color: "white",
-              },
+              cursor: "default",
             }}
+            state={{ poemId: props.PostCardData._id }}
           >
-            Read More
-          </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              sx={{
+                color: "black",
+                borderColor: "black",
+                "&:hover": {
+                  backgroundColor: "black",
+                  color: "white",
+                },
+              }}
+            >
+              Read More
+            </Button>
+          </Link>
         </Box>
       </CardContent>
     </Card>

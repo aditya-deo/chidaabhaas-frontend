@@ -1,0 +1,74 @@
+.poem-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  flex: 1;
+}
+
+.poem-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.author-name {
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.likes {
+  margin-bottom: 20px;
+}
+
+.poem-content {
+  line-height: 1.8;
+}
+
+.poem-line {
+  margin-bottom: 10px;
+}
+
+.poem-view-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 85px;
+}
+
+.more-from-author {
+  flex-basis: 30%;
+  margin-left: 2rem;
+  background-color: #f8f8f8;
+  padding: 10px;
+}
+
+.more-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.more-list {
+  list-style: none;
+  padding: 0;
+}
+
+.more-list li {
+  margin-bottom: 10px;
+}
+
+.more-list a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.more-list a:hover {
+  color: #007bff;
+}
