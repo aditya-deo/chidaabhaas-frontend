@@ -14,7 +14,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const drawerWidth = 240;
 const navItems = ["Write", "About", "Profile"];
@@ -22,9 +22,20 @@ const navItems = ["Write", "About", "Profile"];
 function Navbar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [buttonText, setButtonText] = React.useState("Write");
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
+  };
+
+  const handleButtonClick = () => {
+    if (buttonText === "Read") {
+      navigate("/read/1");
+    } else {
+      navigate("/write");
+    }
   };
 
   const drawer = (
@@ -49,6 +60,14 @@ function Navbar(props) {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
+
+  React.useEffect(() => {
+    if (location.pathname === "/write") {
+      setButtonText("Read");
+    } else {
+      setButtonText("Write");
+    }
+  }, [location.pathname]);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -77,12 +96,18 @@ function Navbar(props) {
                 <IconButton key={item} sx={{ color: "#000000" }}>
                   <AccountCircleIcon />
                 </IconButton>
+              ) : item === "About" ? (
+                <Button
+                  sx={{ color: "#000000" }}
+                  component={Link}
+                  to={"/about"}
+                >
+                  {item}
+                </Button>
               ) : (
-                <Link to="/write">
-                  <Button key={item} sx={{ color: "#000000" }}>
-                    {item}
-                  </Button>
-                </Link>
+                <Button sx={{ color: "#000000" }} onClick={handleButtonClick}>
+                  {buttonText}
+                </Button>
               )
             )}
           </Box>
