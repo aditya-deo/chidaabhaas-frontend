@@ -34,7 +34,7 @@ const ReadPoem = () => {
         <div className="poem-container">
           <h1 className="poem-title">{poemObject.PoemTitle}</h1>
           <p className="author-name">{poemObject.Poet.Username}</p>
-          <p className="likes">Likes: 100</p>
+          <p className="likes">Likes: {poemObject.NumberOfLikes}</p>
           <div className="poem-content">
             <pre>{poemObject.PoemContent}</pre>
           </div>
