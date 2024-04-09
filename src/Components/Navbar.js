@@ -45,15 +45,30 @@ function Navbar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <Link to="write">
-                <ListItemText primary={item} />
-              </Link>
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {navItems.map((item) =>
+          item === "Profile" || item === "About" ? (
+            <ListItem key={item} disablePadding>
+              <ListItemButton sx={{ textAlign: "center" }}>
+                <Link to={`/${item.toLowerCase()}`}>
+                  <ListItemText primary={item} />
+                </Link>
+              </ListItemButton>
+            </ListItem>
+          ) : (
+            <ListItem key={item} disablePadding>
+              <ListItemButton
+                sx={{ textAlign: "center" }}
+                onClick={handleButtonClick}
+              >
+                <Link to={item === "Write" ? "/write" : "/read/1"} key={item}>
+                  <ListItemText
+                    primary={item === "Write" ? buttonText : item}
+                  />
+                </Link>
+              </ListItemButton>
+            </ListItem>
+          )
+        )}
       </List>
     </Box>
   );
