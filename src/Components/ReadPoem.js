@@ -3,13 +3,10 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import "./ReadPoem.css";
 import Navbar from "./Navbar";
+import parse from "html-react-parser";
 
 const ReadPoem = () => {
-  const [poemObject, setPoemObject] = useState({
-    Poet: {
-      Username: "",
-    },
-  });
+  const [poemObject, setPoemObject] = useState({});
   const location = useLocation();
   const poemId = location.state.poemId;
   useEffect(() => {
@@ -17,7 +14,8 @@ const ReadPoem = () => {
       axios
         .get(`http://localhost:8080/poem/${poemId}`)
         .then((res) => {
-          setPoemObject(res.data);
+          console.log(res);
+          setPoemObject(res.data[0]);
         })
         .catch((err) => {
           console.log(err);
@@ -32,11 +30,11 @@ const ReadPoem = () => {
       <Navbar />
       <div className="poem-view-container">
         <div className="poem-container">
-          <h1 className="poem-title">{poemObject.PoemTitle}</h1>
-          <p className="author-name">{poemObject.Poet.Username}</p>
-          <p className="likes">Likes: {poemObject.NumberOfLikes}</p>
+          <h1 className="poem-title">{poemObject.poemtitle}</h1>
+          <p className="author-name">{poemObject.poetname}</p>
+          <p className="likes">Likes: {poemObject.numberoflikes}</p>
           <div className="poem-content">
-            <pre>{poemObject.PoemContent}</pre>
+            {parse(JSON.parse(poemObject.poemcontent))}
           </div>
         </div>
         <div className="more-from-author">

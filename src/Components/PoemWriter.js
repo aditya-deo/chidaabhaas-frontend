@@ -1,19 +1,60 @@
-import React, { useState } from "react";
-import { Box, TextField, Button, Typography, Link, Paper } from "@mui/material";
+import React, { useState, useRef } from "react";
+import { Box, Typography, Link, Paper, Button } from "@mui/material";
 import Navbar from "./Navbar";
+import axios from "axios";
+import JoditEditor from "jodit-react";
 
 const PoemWriter = () => {
-  const [title, setTitle] = useState("");
+  const editor = useRef(null);
   const [content, setContent] = useState("");
+  const config = {
+    readonly: false, // All options from https://xdsoft.net/jodit/doc/
+    height: "70vh", // Set a fixed height in pixels
+    // Define your toolbar buttons here
+    buttons: [
+      "source",
+      "|",
+      "bold",
+      "strikethrough",
+      "underline",
+      "italic",
+      "|",
+      "ul",
+      "ol",
+      "|",
+      "outdent",
+      "indent",
+      "|",
+      "font",
+      "fontsize",
+      "brush",
+      "paragraph",
+      "|",
+      "align",
+      "undo",
+      "redo",
+      "|",
+      "hr",
+      "eraser",
+      "|",
+      "fullsize",
+    ],
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // You can add logic here to handle the submission of the poem
-    console.log("Title:", title);
-    console.log("Content:", content);
-    // Reset the form after submission
-    setTitle("");
-    setContent("");
+    var poemObject = {
+      poemTitle: "title",
+      poemContent: JSON.stringify(content),
+    };
+    axios
+      .post("http://localhost:8080/write/submitpoem", poemObject)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -22,44 +63,35 @@ const PoemWriter = () => {
       <Box sx={{ display: "flex" }}>
         <Box
           sx={{
-            maxWidth: 700,
+            maxWidth: 1000,
             margin: "auto",
             padding: "2rem",
             paddingTop: "84px",
+            width: "100%",
           }}
         >
           <Typography variant="h5" gutterBottom>
             Write a Poem
           </Typography>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              label="Title"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              value={title}
-              onChange={(event) => setTitle(event.target.value)}
-            />
-            <TextField
-              label="Content"
-              variant="outlined"
-              fullWidth
-              multiline
-              rows={12}
-              margin="normal"
-              value={content}
-              onChange={(event) => setContent(event.target.value)}
-            />
-            <Button
-              type="submit"
-              variant="outlined"
-              color="inherit"
-              style={{ marginTop: "1rem" }}
-            >
-              Submit
-            </Button>
-          </form>
+          <JoditEditor
+            ref={editor}
+            value={content}
+            onBlur={(newContent) => setContent(newContent)}
+            config={config}
+          />
+          <Button
+            sx={{
+              color: "#000000",
+              marginTop: "10px",
+              width: "100%",
+              border: "1px solid #d5d5d5",
+            }}
+            onClick={handleSubmit}
+          >
+            Publish
+          </Button>
         </Box>
+
         <Box sx={{ padding: "2rem", minWidth: 400, paddingTop: "84px" }}>
           <Typography
             variant="h6"

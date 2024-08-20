@@ -18,13 +18,13 @@ const PostCard = (props) => {
     >
       <CardContent>
         <Typography variant="h5" gutterBottom>
-          {props.PostCardData.PoemTitle}
+          {props.PostCardData.poemtitle}
         </Typography>
         <Typography variant="body1" paragraph>
-          {props.PostCardData.PoemContent.trim().substring(0, 150)}...
+          {props.PostCardData.poemcontent.trim().substring(0, 150)}...
         </Typography>
         <Typography variant="caption" paragraph>
-          Posted by: {props.PostCardData.Poet.Username}
+          Posted by: {props.PostCardData.poet}
         </Typography>
         <Box
           sx={{
@@ -36,17 +36,17 @@ const PostCard = (props) => {
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <FavoriteBorderIcon sx={{ color: "black", margin: "5px" }} />
             <Typography variant="caption">
-              {props.PostCardData.NumberOfLikes} likes
+              {props.PostCardData.numberoflikes} likes
             </Typography>
           </Box>
           <Link
-            to={`/poem/${props.PostCardData._id}`}
+            to={`/poem/${props.PostCardData.poemid}`}
             style={{
               textDecoration: "none",
               color: "black",
               cursor: "default",
             }}
-            state={{ poemId: props.PostCardData._id }}
+            state={{ poemId: props.PostCardData.poemid }}
           >
             <Button
               variant="outlined"
