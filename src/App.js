@@ -4,8 +4,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Read from "./Components/Read";
 import ReadPoem from "./Components/ReadPoem";
 import PoemWriter from "./Components/PoemWriter";
+import { useState } from "react";
 
 function App() {
+  const [user, setUser] = useState(null);
   const router = createBrowserRouter([
     {
       path: "/",
@@ -14,7 +16,7 @@ function App() {
     },
     {
       path: "read/:page",
-      element: <Read />,
+      element: <Read setUser={setUser} user={user} />,
     },
     {
       path: "poem/:poemId",

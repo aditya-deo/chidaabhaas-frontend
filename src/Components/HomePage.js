@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function HomePage() {
   return (
     <Link
-      to={`read/1`}
+      to={`http://localhost:8080/auth/google`}
       style={{ textDecoration: "none", color: "black", cursor: "default" }}
     >
       <div
